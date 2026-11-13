@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BHARATH© — .NET, WPF &amp; Azure Software Developer Portfolio</title>
+  <meta name="description" content="Editorial Swiss-grid portfolio of Bharath S — Software Developer with 4+ years of experience building desktop and cloud applications using C#, .NET, WPF, UWP, WinUI3, ASP.NET Core, and Microsoft Azure." />
+
+  <!-- Google Fonts: Anton (Condensed Brutalist Display), Space Grotesk (Editorial Sans), JetBrains Mono (Technical Index) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Anton', 'Impact', 'sans-serif'],
+            sans: ['Space Grotesk', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            obsidian: '#0A0A0A',
+            surface: '#111111',
+            surfaceHover: '#171717',
+            hairline: '#222222',
+            vermilion: '#FF4D00',
+            vermilionLight: '#FF6A2B',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg-obsidian: #0A0A0A;
+      --bg-surface: #111111;
+      --border-hairline: #222222;
+      --accent-vermilion: #FF4D00;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0A0A0A;
+      color: #FFFFFF;
+      overflow-x: hidden;
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+    }
+
+    /* Subtle Swiss Architectural Grid Lines */
+    .swiss-grid-bg {
+      background-size: 64px 64px;
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0A0A0A;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2A2A2A;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #FF4D00;
+    }
+
+    /* Custom Magnetic Follower Cursor (Desktop Only) */
+    @media (pointer: fine) {
+      #custom-cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 14px;
+        height: 14px;
+        border-radius: 9999px;
+        background-color: #FF4D00;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: width 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+                    height 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+                    background-color 0.25s ease,
+                    border 0.25s ease;
+        mix-blend-mode: normal;
+      }
+      #custom-cursor.cursor-expanded {
+        width: 56px;
+        height: 56px;
+        background-color: rgba(255, 77, 0, 0.14);
+        border: 1px solid #FF4D00;
+        backdrop-filter: blur(2px);
+      }
+    }
+    @media (pointer: coarse) {
+      #custom-cursor {
+        display: none !important;
+      }
+    }
+
+    /* Infinite Dual-Direction Marquee Keyframes */
+    @keyframes marqueeLeft {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes marqueeRight {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0%); }
+    }
+
+    .marquee-track-left {
+      display: flex;
+      width: max-content;
+      animation: marqueeLeft 26s linear infinite;
+    }
+    .marquee-track-right {
+      display: flex;
+      width: max-content;
+      animation: marqueeRight 28s linear infinite;
+    }
+    .marquee-wrapper:hover .marquee-track-left,
+    .marquee-wrapper:hover .marquee-track-right {
+      animation-play-state: paused;
+    }
+
+    /* Framer-style Text & Block Reveal Animations */
+    .reveal-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-up.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Accordion Smooth Grid Transition */
+    .accordion-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .accordion-item.active .accordion-body {
+      grid-template-rows: 1fr;
+    }
+    .accordion-inner {
+      overflow: hidden;
+    }
+    .accordion-item.active .accordion-icon {
+      transform: rotate(45deg);
+      color: #FF4D00;
+    }
+
+    /* Animated Skill Progress Bar */
+    .stack-bar-fill {
+      width: 0%;
+      transition: width 1.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Project Row Hover Preview */
+    .project-row {
+      transition: background-color 0.3s ease, padding-left 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .project-row:hover {
+      background-color: #121212;
+    }
+  </style>
+</head>
+<body class="bg-[#0A0A0A] text-white antialiased selection:bg-[#FF4D00] selection:text-white swiss-grid-bg">
+
+  <!-- Custom Magnetic Follower Cursor -->
+  <div id="custom-cursor" aria-hidden="true"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- ==================== FULL-SCREEN OVERLAY MENU (FRAMER PORTO STYLE) ==================== -->
+  <div id="fullscreen-menu" class="fixed inset-0 z-50 bg-[#0A0A0A] hidden flex-col justify-between border-b border-[#222222] transition-opacity duration-300">
+    <!-- Overlay Top Bar -->
+    <div class="w-full border-b border-[#222222] px-4 sm:px-8 h-16 sm:h-20 flex items-center justify-between">
+      <a href="#home" class="menu-close-link font-display text-2xl sm:text-3xl tracking-tight text-white uppercase">
+        BHARATH<span class="text-[#FF4D00]">©</span>
+      </a>
+      <div class="hidden md:flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-neutral-400">
+        <span class="w-2 h-2 rounded-full bg-[#FF4D00] animate-ping"></span>
+        <span>NAVIGATION INDEX // 2021–2026</span>
+      </div>
+      <button id="close-menu-btn" type="button" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#333333] hover:border-[#FF4D00] hover:bg-[#FF4D00] hover:text-black font-mono text-xs uppercase tracking-wider transition-all">
+        <span>CLOSE</span>
+        <span class="text-base leading-none">&times;</span>
+      </button>
+    </div>
+
+    <!-- Overlay Links Grid -->
+    <div class="max-w-7xl w-full mx-auto px-4 sm:px-8 py-8 overflow-y-auto my-auto">
+      <nav class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2">
+        <a href="#approach" class="menu-close-link group flex items-baseline justify-between py-3 border-b border-[#222222] hover:border-[#FF4D00] transition-colors">
+          <span class="font-display text-4xl sm:text-6xl uppercase tracking-tight text-white group-hover:text-[#FF4D00] transition-colors">01. APPROACH</span>
+          <span class="font-mono text-xs text-neutral-500 group-hover:text-white">METHODOLOGY &rarr;</span>
+        </a>
+        <a href="#portfolio" class="menu-close-link group flex items-baseline justify-between py-3 border-b border-[#222222] hover:border-[#FF4D00] transition-colors">
+          <span class="font-display text-4xl sm:text-6xl uppercase tracking-tight text-white group-hover:text-[#FF4D00] transition-colors">02. PORTFOLIO</span>
+          <span class="font-mono text-xs text-neutral-500 group-hover:text-white">06 PROJECTS &rarr;</span>
+        </a>
+        <a href="#about" class="menu-close-link group flex items-baseline justify-between py-3 border-b border-[#222222] hover:border-[#FF4D00] transition-colors">
+          <span class="font-display text-4xl sm:text-6xl uppercase tracking-tight text-white group-hover:text-[#FF4D00] transition-colors">03. WHO AM I</span>
+          <span class="font-mono text-xs text-neutral-500 group-hover:text-white">BIO &amp; EDU &rarr;</span>
+        </a>
+        <a href="#services" class="menu-close-link group flex items-baseline justify-between py-3 border-b border-[#222222] hover:border-[#FF4D00] transition-colors">
+          <span class="font-display text-4xl sm:text-6xl uppercase tracking-tight text-white group-hover:text-[#FF4D00] transition-colors">04. SERVICES</span>
+          <span class="font-mono text-xs text-neutral-500 group-hover:text-white">CAPABILITIES &rarr;</span>
+        </a>
+        <a href="#experience" class="menu-close-link group flex items-baseline justify-between py-3 border-b border-[#222222] hover:border-[#FF4D00] transition-colors">
+          <span class="font-display text-4xl sm:text-6xl uppercase tracking-tight text-white group-hover:text-[#FF4D00] transition-colors">05. EXPERIENCE</span>
+          <span class="font-mono text-xs text-neutral-500 group-hover:text-white">2021–PRESENT &rarr;</span>
+        </a>
+        <a href="#stack" class="menu-close-link group flex items-baseline justify-between py-3 border-b border-[#222222] hover:border-[#FF4D00] transition-colors">
+          <span class="font-display text-4xl sm:text-6xl uppercase tracking-tight text-white group-hover:text-[#FF4D00] transition-colors">06. STACK &amp; FAQ</span>
+          <span class="font-mono text-xs text-neutral-500 group-hover:text-white">PROFICIENCY &rarr;</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Overlay Footer Meta -->
+    <div class="w-full border-t border-[#222222] px-4 sm:px-8 py-4 flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-neutral-400">
+      <span>MADURAI, TAMIL NADU, INDIA</span>
+      <a href="mailto:bharath.s1507@gmail.com" class="text-white hover:text-[#FF4D00] transition-colors">BHARATH.S1507@GMAIL.COM</a>
+      <span>&copy; 2026 BHARATH S</span>
+    </div>
+  </div>
+
+  <!-- ==================== 1. MINIMAL STICKY TOP BAR ==================== -->
+  <header class="sticky top-0 z-40 w-full bg-[#0A0A0A]/90 backdrop-blur-md border-b border-[#222222]">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
+      <!-- Brand Wordmark -->
+      <a href="#home" class="cursor-hover flex items-center gap-2.5 group focus:outline-none">
+        <span class="font-display text-2xl sm:text-3xl tracking-tight text-white uppercase">
+          BHARATH<span class="text-[#FF4D00]">©</span>
+        </span>
+        <span class="hidden sm:inline-block font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 border border-[#222222] text-neutral-400 group-hover:border-[#FF4D00] group-hover:text-white transition-colors">
+          .DEV
+        </span>
+      </a>
+
+      <!-- Center Live Local IST Clock & Location -->
+      <div class="hidden lg:flex items-center gap-3 font-mono text-xs tracking-wider text-neutral-400 border-x border-[#222222] px-6 h-full">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>LOCAL / <span id="live-ist-clock" class="text-white font-semibold">--:--:-- IST</span> — MADURAI, IN</span>
+      </div>
+
+      <!-- Right Actions: Contact Pill & Menu Trigger -->
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <a href="#contact" class="cursor-hover inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white text-[#0A0A0A] hover:bg-[#FF4D00] hover:text-white font-mono text-xs font-bold uppercase tracking-wider transition-all duration-300">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#FF4D00] group-hover:bg-white"></span>
+          <span>CONTACT NOW</span>
+        </a>
+        <button id="open-menu-btn" type="button" aria-label="Open Navigation Menu" class="cursor-hover inline-flex items-center gap-2 px-4 py-2 sm:py-2.5 rounded-full border border-[#2A2A2A] hover:border-white text-white font-mono text-xs uppercase tracking-wider transition-colors">
+          <span>MENU</span>
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 8h16M4 16h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ==================== 2. HERO SECTION (PORTO EDITORIAL + KINETIC MARQUEE) ==================== -->
+    <section id="home" class="relative border-b border-[#222222] overflow-hidden">
+      <!-- Top Metadata Strip -->
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-4 border-b border-[#222222] flex flex-wrap items-center justify-between gap-3 font-mono text-[11px] sm:text-xs uppercase tracking-widest text-neutral-400">
+        <div class="flex items-center gap-2">
+          <span class="text-[#FF4D00]">●</span>
+          <span>BASED IN MADURAI, TAMIL NADU, INDIA</span>
+        </div>
+        <div class="hidden sm:block text-neutral-500">
+          B.SC. IT (81%) // 4+ YEARS EXPERIENCE
+        </div>
+        <div class="flex items-center gap-2 text-white">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>AVAILABLE FOR HIRE</span>
+        </div>
+      </div>
+
+      <!-- Oversized Edge-to-Edge Kinetic Marquee Display Typography -->
+      <div class="marquee-wrapper py-6 sm:py-10 border-b border-[#222222] select-none overflow-hidden bg-[#0A0A0A]">
+        <div class="marquee-track-left items-center">
+          <span class="font-display text-[22vw] sm:text-[17vw] lg:text-[15vw] leading-[0.84] uppercase tracking-tight text-white pr-8">
+            BHARATH S <span class="text-[#FF4D00]">—</span> .NET &amp; WPF ARCHITECT <span class="text-[#FF4D00]">//</span>
+          </span>
+          <span class="font-display text-[22vw] sm:text-[17vw] lg:text-[15vw] leading-[0.84] uppercase tracking-tight text-white pr-8">
+            BHARATH S <span class="text-[#FF4D00]">—</span> .NET &amp; WPF ARCHITECT <span class="text-[#FF4D00]">//</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Hero Swiss Sub-Grid: Editorial Role Statement + Portrait Card -->
+      <div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12">
+        <!-- Left 7 Columns: Role Statement & CTAs -->
+        <div class="lg:col-span-7 p-6 sm:p-10 lg:p-14 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#222222] space-y-10">
+          <div class="space-y-6 reveal-up">
+            <div class="inline-flex items-center gap-2 px-3 py-1 border border-[#222222] bg-[#111111] font-mono text-xs uppercase tracking-widest text-[#FF4D00]">
+              <span>SOFTWARE DEVELOPER + .NET / WPF / AZURE</span>
+            </div>
+
+            <h1 class="font-sans font-bold text-3xl sm:text-5xl lg:text-[52px] tracking-tight text-white leading-[1.08] uppercase">
+              BUILDING HIGH-PERFORMANCE <span class="text-[#FF4D00]">DESKTOP</span> &amp; <span class="underline decoration-[#FF4D00] decoration-2 underline-offset-8">CLOUD SOLUTIONS</span>.
+            </h1>
+
+            <p class="text-base sm:text-lg text-neutral-400 max-w-2xl leading-relaxed">
+              Software Developer with <strong class="text-white font-semibold">4+ years of production experience</strong> specializing in C#, .NET, WPF, UWP, WinUI3, ASP.NET Core, and Microsoft Azure. Focused on clean MVVM/MVC architecture, fluid UI craftsmanship, and resilient cloud-backed systems.
+            </p>
+          </div>
+
+          <div class="pt-4 flex flex-wrap items-center justify-between gap-6 border-t border-[#222222] reveal-up">
+            <div class="flex flex-wrap items-center gap-3">
+              <a href="#portfolio" class="cursor-hover inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-[#FF4D00] hover:bg-white text-white hover:text-[#0A0A0A] font-mono text-xs font-bold uppercase tracking-widest transition-all duration-300">
+                <span>EXPLORE WORK (06)</span>
+                <span>&darr;</span>
+              </a>
+              <a href="#contact" class="cursor-hover inline-flex items-center gap-3 px-6 py-3.5 rounded-full border border-[#333333] hover:border-white text-white font-mono text-xs font-bold uppercase tracking-widest transition-all duration-300">
+                <span>GET IN TOUCH</span>
+                <span>&rarr;</span>
+              </a>
+            </div>
+
+            <div class="font-mono text-xs text-neutral-500 uppercase tracking-wider">
+              SCROLL TO EXPLORE [01 — 08]
+            </div>
+          </div>
+        </div>
+
+        <!-- Right 5 Columns: Editorial Portrait Card -->
+        <div class="lg:col-span-5 p-6 sm:p-10 lg:p-12 flex flex-col justify-between bg-[#0D0D0D] reveal-up">
+          <div class="flex items-center justify-between font-mono text-xs uppercase tracking-widest text-neutral-400 mb-4">
+            <span>FIG 00 // PORTRAIT</span>
+            <span class="text-[#FF4D00]">AGILE / SCRUM</span>
+          </div>
+
+          <div class="relative group overflow-hidden border border-[#222222] bg-[#141414] aspect-[4/4] sm:aspect-[16/13] lg:aspect-[4/4]">
+            <img
+              src="Professional South Asian Headshot.png"
+              alt="Bharath S — .NET, WPF & Azure Software Developer"
+              class="w-full h-full object-cover object-center grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+              onerror="this.onerror=null; this.src='https://placehold.co/600x600/111111/FF4D00?text=BHARATH+S';"
+            />
+            <!-- Editorial Corner Tag -->
+            <div class="absolute bottom-3 left-3 right-3 px-3.5 py-2.5 bg-[#0A0A0A]/90 backdrop-blur-md border border-[#222222] flex items-center justify-between font-mono text-[11px]">
+              <span class="text-white font-semibold uppercase">BHARATH S</span>
+              <span class="text-[#FF4D00]">C# • WPF • AZURE</span>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-4 border-t border-[#222222] flex items-center justify-between font-mono text-xs text-neutral-400">
+            <span>TOUCHTIER TECHNOLOGY</span>
+            <span class="text-white">PRESENT</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 3. 01 // APPROACH (THREE PHASES INTERACTIVE SLIDER & GRID) ==================== -->
+    <section id="approach" class="border-b border-[#222222]">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-16 sm:py-24">
+        <!-- Section Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 border-b border-[#222222] reveal-up">
+          <div>
+            <span class="font-mono text-xs uppercase tracking-widest text-[#FF4D00]">01 // APPROACH</span>
+            <h2 class="font-display text-5xl sm:text-7xl lg:text-8xl uppercase tracking-tight text-white mt-2 leading-none">
+              THREE PHASES
+            </h2>
+          </div>
+
+          <!-- Slider Controls -->
+          <div class="flex items-center gap-3">
+            <span id="approach-step-indicator" class="font-mono text-xs uppercase tracking-widest text-neutral-400 mr-2">
+              PHASE [01 / 03]
+            </span>
+            <button id="approach-prev" type="button" aria-label="Previous Phase" class="cursor-hover w-11 h-11 rounded-full border border-[#2A2A2A] hover:border-[#FF4D00] hover:bg-[#FF4D00] hover:text-white flex items-center justify-center font-mono text-sm transition-all">
+              &larr;
+            </button>
+            <button id="approach-next" type="button" aria-label="Next Phase" class="cursor-hover w-11 h-11 rounded-full border border-[#2A2A2A] hover:border-[#FF4D00] hover:bg-[#FF4D00] hover:text-white flex items-center justify-center font-mono text-sm transition-all">
+              &rarr;
+            </button>
+          </div>
+        </div>
+
+        <!-- Three Phases Grid -->
+        <div id="approach-cards" class="grid grid-cols-1 lg:grid-cols-3 border-x border-b border-[#222222]">
+          <!-- Phase 01 -->
+          <div data-phase="0" class="approach-card cursor-hover p-8 sm:p-10 border-b lg:border-b-0 lg:border-r border-[#222222] bg-[#121212] transition-all duration-300 flex flex-col justify-between min-h-[320px]">
+            <div class="flex items-center justify-between">
+              <span class="font-display text-5xl sm:text-6xl text-[#FF4D00]">01</span>
+              <span class="font-mono text-[11px] uppercase tracking-widest px-2.5 py-1 border border-[#2A2A2A] text-neutral-300">ARCHITECTURE</span>
+            </div>
+            <div class="mt-8 space-y-3">
+              <h3 class="font-sans font-bold text-2xl uppercase text-white">Discover &amp; Architect</h3>
+              <p class="text-sm sm:text-base text-neutral-400 leading-relaxed">
+                Analyze user stories, system bottlenecks, and data contracts to blueprint clean MVVM/MVC patterns and decoupled Microsoft Azure cloud workflows.
+              </p>
+            </div>
+            <div class="pt-6 mt-6 border-t border-[#222222] font-mono text-xs text-neutral-500">
+              MVVM • MVC • SYSTEM DESIGN
+            </div>
+          </div>
+
+          <!-- Phase 02 -->
+          <div data-phase="1" class="approach-card cursor-hover p-8 sm:p-10 border-b lg:border-b-0 lg:border-r border-[#222222] bg-[#0A0A0A] hover:bg-[#121212] transition-all duration-300 flex flex-col justify-between min-h-[320px]">
+            <div class="flex items-center justify-between">
+              <span class="font-display text-5xl sm:text-6xl text-neutral-600 phase-num transition-colors">02</span>
+              <span class="font-mono text-[11px] uppercase tracking-widest px-2.5 py-1 border border-[#2A2A2A] text-neutral-300">ENGINEERING</span>
+            </div>
+            <div class="mt-8 space-y-3">
+              <h3 class="font-sans font-bold text-2xl uppercase text-white">Design &amp; Implement</h3>
+              <p class="text-sm sm:text-base text-neutral-400 leading-relaxed">
+                Craft responsive desktop interfaces in WPF, UWP, and WinUI3 alongside scalable ASP.NET Core APIs, custom controls, and storyboard animations.
+              </p>
+            </div>
+            <div class="pt-6 mt-6 border-t border-[#222222] font-mono text-xs text-neutral-500">
+              C# • WPF • WINUI3 • ASP.NET CORE
+            </div>
+          </div>
+
+          <!-- Phase 03 -->
+          <div data-phase="2" class="approach-card cursor-hover p-8 sm:p-10 bg-[#0A0A0A] hover:bg-[#121212] transition-all duration-300 flex flex-col justify-between min-h-[320px]">
+            <div class="flex items-center justify-between">
+              <span class="font-display text-5xl sm:text-6xl text-neutral-600 phase-num transition-colors">03</span>
+              <span class="font-mono text-[11px] uppercase tracking-widest px-2.5 py-1 border border-[#2A2A2A] text-neutral-300">EXECUTION</span>
+            </div>
+            <div class="mt-8 space-y-3">
+              <h3 class="font-sans font-bold text-2xl uppercase text-white">Deliver &amp; Optimize</h3>
+              <p class="text-sm sm:text-base text-neutral-400 leading-relaxed">
+                Collaborate in Agile/SCRUM sprints with QA and product teams to resolve root-cause defects, optimize SQL/NoSQL queries, and ship production releases.
+              </p>
+            </div>
+            <div class="pt-6 mt-6 border-t border-[#222222] font-mono text-xs text-neutral-500">
+              AGILE / SCRUM • QA • PERFORMANCE
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 4. 02 // PORTFOLIO (2021 - 2026 FEATURED PROJECTS) ==================== -->
+    <section id="portfolio" class="border-b border-[#222222]">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-16 sm:py-24">
+        <!-- Section Header & Filter Pills -->
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-10 border-b border-[#222222] reveal-up">
+          <div>
+            <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-widest">
+              <span class="text-[#FF4D00]">02 // PORTFOLIO</span>
+              <span class="text-neutral-500">[2021 — 2026]</span>
+            </div>
+            <h2 class="font-display text-5xl sm:text-7xl lg:text-8xl uppercase tracking-tight text-white mt-2 leading-none">
+              SELECTED WORK
+            </h2>
+          </div>
+
+          <!-- Brutalist Filter Pills -->
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" data-filter="all" class="project-filter-btn cursor-hover px-4 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-wider bg-[#FF4D00] text-white border border-[#FF4D00] transition-all">
+              ALL (06)
+            </button>
+            <button type="button" data-filter="desktop" class="project-filter-btn cursor-hover px-4 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-wider bg-transparent text-neutral-400 hover:text-white border border-[#2A2A2A] hover:border-white transition-all">
+              DESKTOP / WPF
+            </button>
+            <button type="button" data-filter="web-cloud" class="project-filter-btn cursor-hover px-4 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-wider bg-transparent text-neutral-400 hover:text-white border border-[#2A2A2A] hover:border-white transition-all">
+              WEB &amp; CLOUD
+            </button>
+          </div>
+        </div>
+
+        <!-- Editorial Project Rows List -->
+        <div id="projects-list" class="divide-y divide-[#222222] border-b border-[#222222]">
+
+          <!-- Project 01: Taskbar — Custom Control App -->
+          <article data-category="desktop" data-project-id="taskbar" class="project-row view-details-btn cursor-hover group py-8 sm:py-10 px-2 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center cursor-pointer">
+            <div class="lg:col-span-1 font-mono text-sm text-[#FF4D00] font-bold">
+              01 /
+            </div>
+            <div class="lg:col-span-5">
+              <span class="font-mono text-[11px] uppercase tracking-widest text-neutral-500 block mb-1">
+                CODING BEES TECHNOLOGY // CUSTOM CONTROL
+              </span>
+              <h3 class="font-display text-3xl sm:text-5xl uppercase tracking-tight text-white group-hover:text-[#FF4D00] transition-colors">
+                TASKBAR — CUSTOM CONTROL APP
+              </h3>
+            </div>
+            <div class="lg:col-span-4">
+              <p class="text-sm text-neutral-400 leading-relaxed">
+                Custom Windows Taskbar application engineered to override default OS behavior, control application visibility, and elevate desktop usability.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-3 font-mono text-[11px] text-neutral-300">
+                <span class="px-2 py-0.5 border border-[#2A2A2A] bg-[#111111]">C#</span>
+                <span class="px-2 py-0.5 border border-[#2A2A2A] bg-[#111111]">WPF</span>
+                <span class="px-2 py-0.5 border border-[#2A2A2A] bg-[#111111]">WIN32</span>
+              </div>
+            </div>
+            <div class="lg:col-span-2 flex lg:justify-end">
+              <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#2A2A2A] group-hover:border-[#FF4D00] group-hover:bg-[#FF4D00] text-xs font-mono uppercase tracking-wider text-white transition-all">
+                <span>CASE STUDY</span>
+                <span>&#8599;</span>
+              </span>
+            </div>
+          </article>
+
+          <!-- Project 02: Poker Game Animation Module -->
+          <article data-category="desktop" data-project-id="poker" class="project-row view-details-btn cursor-hover group py-8 sm:py-10 px-2 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center cursor-pointer">
+            <div class="lg:col-span-1 font-mono text-sm text-[#FF4D00] font-bold">
+              02 /
+            </div>
+            <div class="lg:col-span-5">
+              <span class="font-mono text-[11px] uppercase tracking-widest text-neutral-500 block mb-1">
+                CODING BEES TECHNOLOGY // REAL-TIME UI
+              </span>
+              <h3 class="font-display text-3xl sm:text-5xl uppercase tracking-tight text-white group-hover:text-[#FF4D00] transition-colors">
+                POKER GAME ANIMATION MODULE
+              </h3>
+            </div>
+            <div class="lg:col-span-4">
+              <p class="text-sm text-neutral-400 leading-relaxed">
+                Animation-heavy desktop features including card throwing trajectories, live timers, notifications, and real-time animated smiley expressions.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-3 font-mono text-[11px] text-neutral-300">
+                <span class="px-2 py-0.5 border border-[#2A2A2A] bg-[#111111]">WPF</span>
+                <span class="px-2 py-0.5 border border-[#2A2A2A] bg-[#111111]">MVVM</span>
+                <span class="px-2 py-0.5 border border-[#2A2A2A] bg-[#111111]">STORYBOARD</span>
+              </div>
+            </div>
+            <div class="lg:col-span-2 flex lg:justify-end">
+              <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#2A2A2A] group-hover:border-[#FF4D00] group-hover:bg-[#FF4D00] text-xs font-mono uppercase tracking-wider text-white transition-all">
+                <span>CASE STUDY</span>
+                <span>&#8599;</span>
+              </span>
+            </div>
+          </article>
+
+          <!-- Project 03: Dineplan — Restaurant Software -->
+          <article data-category="desktop" data-project-id="dineplan" class="project-row view-details-btn cursor-hover group py-8 sm:py-10 px-2 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center cursor-pointer">
+            <div class="lg:col-span-1 font-mono text-sm text-[#FF4D00] font-bold">
+              03 /
+            </div>
+            <div class="lg:col-span-5">
+              <span class="font-mono text-[11px] uppercase tracking-widest text-neutral-500 block mb-1">
+                WPF POS SYSTEM // HOSPITALITY
+              </span>
+              <h3 class="font-display text-3xl sm:text-5xl uppercase tracking-tight text-white group-hover:text-[#FF4D00] transition-colors">
+                DINEPLAN — RESTAURANT SOFTWARE
+              </h3>
+            </div>
+            <div class="lg:col-span-4">
+              <p class="text-sm text-neutral-400 leading-relaxed">
+                WPF-based restaurant management and point-of-sale system engineered for high stability, rapid order workflows, and feature enhancements.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-3 font-mono text-[11px] text-neutral-300">
+                <span class="px-2 py-0.5 border border-[#2A2A2A] bg-[#111111]">C#</span>
+                <span class="px-2 py-0.5 border border-[#2A2A2A] bg-[#111111]">WPF</span>
+                <span class="px-2 py-0.5 border border-[#2A2A2A] bg-[#111111]">SQL SERVER</span>
+              </div>
+            </div>
+            <div class="lg:col-span-2 flex lg:justify-end">
+              <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#2A2A2A] group-hover:border-[#FF4D00] group-hover:bg-[#FF4D00] text-xs font-mono uppercase tracking-wider text-white transition-all">
+                <span>CASE STUDY</span>
+                <span>&#8599;</span>
+              </span>
+            </div>
+          </article>
+
+          <!-- Project 04: ASP.NET MVC Form Application -->
+          <article data-category="web-cloud" data-project-id="mvc-form" class="project-row view-details-btn cursor-hover group py-8 sm:py-10 px-2 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center cursor-pointer">
+            <div class="lg:col-span-1 font-mono text-sm text-[#FF4D00] font-bold">
+              04 /
+            </div>
+            <div class="lg:col-span-5">
+              <span class="font-mono text-[11px] uppercase tracking-widest text-neutral-500 block mb-1">
+                WEB APPLICATION // RBAC SECURITY
+              </span>
+              <h3 class="font-display text-3xl sm:text-5xl uppercase tracking-tight text-white group-hover:text-[#FF4D00] transition-colors">
+                ASP.NET MVC FORM APPLICATION
+              </h3>
+            </div>
+            <div class="lg:col-span-4">
+              <p class="text-sm text-neutral-400 leading-relaxed">
+                Secure ASP.NET MVC platform featuring authentication, role-based access control (RBAC), validation logic, and a dynamic Firestore-backed form builder.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-3 font-mono text-[11px] text-neutral-300">
+                <span class="px-2 py-0.5 border border-[#2A2A2A] bg-[#111111]">ASP.NET MVC</span>
+                <span class="px-2 py-0.5 border border-[#2A2A2A] bg-[#111111]">FIRESTORE</span>
+                <span class="px-2 py-0.5 border border-[#2A2A2A] bg-[#111111]">RBAC</span>
+              </div>
+            </div>
+            <div class="lg:col-span-2 flex lg:justify-end">
+              <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#2A2A2A] group-hover:border-[#FF4D00] group-hover:bg-[#FF4D00] text-xs font-mono uppercase tracking-wider text-white transition-all">
+                <span>CASE STUDY</span>
+                <span>&#8599;</span>
+              </span>
+            </div>
+          </article>
+
+          <!-- Project 05: Law Enforcement & Public Safety UI -->
+          <article data-category="desktop" data-project-id="public-safety" class="project-row view-details-btn cursor-hover group py-8 sm:py-10 px-2 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center cursor-pointer">
+            <div class="lg:col-span-1 font-mono text-sm text-[#FF4D00] font-bold">
+              05 /
+            </div>
+            <div class="lg:col-span-5">
+              <span class="font-mono text-[11px] uppercase tracking-widest text-neutral-500 block mb-1">
+                CODING BEES / 365 LABS // ENTERPRISE API
+              </span>
+              <h3 class="font-display text-3xl sm:text-5xl uppercase tracking-tight text-white group-hover:text-[#FF4D00] transition-colors">
+                LAW ENFORCEMENT &amp; PUBLIC SAFETY UI
+              </h3>
+            </div>
+            <div class="lg:col-span-4">
+              <p class="text-sm text-neutral-400 leading-relaxed">
+                Mission-critical law enforcement desktop interfaces built in WPF and integrated with ASP.NET Core backend APIs for real-time dispatch and data processing.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-3 font-mono text-[11px] text-neutral-300">
+                <span class="px-2 py-0.5 border border-[#2A2A2A] bg-[#111111]">WPF</span>
+                <span class="px-2 py-0.5 border border-[#2A2A2A] bg-[#111111]">ASP.NET CORE</span>
+                <span class="px-2 py-0.5 border border-[#2A2A2A] bg-[#111111]">REST API</span>
+              </div>
+            </div>
+            <div class="lg:col-span-2 flex lg:justify-end">
+              <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#2A2A2A] group-hover:border-[#FF4D00] group-hover:bg-[#FF4D00] text-xs font-mono uppercase tracking-wider text-white transition-all">
+                <span>CASE STUDY</span>
+                <span>&#8599;</span>
+              </span>
+            </div>
+          </article>
+
+          <!-- Project 06: Azure Cloud Storage & Bus Pipeline -->
+          <article data-category="web-cloud" data-project-id="azure-pipeline" class="project-row view-details-btn cursor-hover group py-8 sm:py-10 px-2 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center cursor-pointer">
+            <div class="lg:col-span-1 font-mono text-sm text-[#FF4D00] font-bold">
+              06 /
+            </div>
+            <div class="lg:col-span-5">
+              <span class="font-mono text-[11px] uppercase tracking-widest text-neutral-500 block mb-1">
+                TOUCHTIER TECHNOLOGY // CLOUD ARCHITECTURE
+              </span>
+              <h3 class="font-display text-3xl sm:text-5xl uppercase tracking-tight text-white group-hover:text-[#FF4D00] transition-colors">
+                AZURE CLOUD STORAGE &amp; BUS PIPELINE
+              </h3>
+            </div>
+            <div class="lg:col-span-4">
+              <p class="text-sm text-neutral-400 leading-relaxed">
+                Cloud-native storage and messaging pipeline utilizing Azure Blob, Queue, Table Storage (NoSQL), and Service Bus queues for event-driven workflows.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-3 font-mono text-[11px] text-neutral-300">
+                <span class="px-2 py-0.5 border border-[#2A2A2A] bg-[#111111]">AZURE BLOB</span>
+                <span class="px-2 py-0.5 border border-[#2A2A2A] bg-[#111111]">SERVICE BUS</span>
+                <span class="px-2 py-0.5 border border-[#2A2A2A] bg-[#111111]">NOSQL TABLE</span>
+              </div>
+            </div>
+            <div class="lg:col-span-2 flex lg:justify-end">
+              <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#2A2A2A] group-hover:border-[#FF4D00] group-hover:bg-[#FF4D00] text-xs font-mono uppercase tracking-wider text-white transition-all">
+                <span>CASE STUDY</span>
+                <span>&#8599;</span>
+              </span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 5. 03 // WHO AM I (SINCE 2021 — ABOUT, EDUCATION & CODE PROFILE) ==================== -->
+    <section id="about" class="border-b border-[#222222]">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-16 sm:py-24">
+        <div class="flex flex-wrap items-baseline justify-between gap-4 pb-10 border-b border-[#222222] reveal-up">
+          <div>
+            <span class="font-mono text-xs uppercase tracking-widest text-[#FF4D00]">03 // WHO AM I</span>
+            <h2 class="font-display text-5xl sm:text-7xl lg:text-8xl uppercase tracking-tight text-white mt-2 leading-none">
+              SINCE 2021
+            </h2>
+          </div>
+          <span class="font-mono text-xs uppercase tracking-widest text-neutral-400">
+            MADURAI, TAMIL NADU // .NET &amp; CLOUD SPECIALIST
+          </span>
+        </div>
+
+        <!-- Editorial Bio & Interactive Code Profile Split -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 border-x border-b border-[#222222]">
+          <!-- Left 6 Cols: Editorial Statement, Education & Strengths -->
+          <div class="lg:col-span-6 p-6 sm:p-10 border-b lg:border-b-0 lg:border-r border-[#222222] flex flex-col justify-between space-y-8 reveal-up">
+            <div class="space-y-5">
+              <p class="font-sans font-bold text-2xl sm:text-3xl uppercase leading-snug text-white">
+                I’M <span class="text-[#FF4D00]">BHARATH S</span>, A SOFTWARE DEVELOPER CRAFTING RESILIENT WINDOWS DESKTOP &amp; AZURE CLOUD SOFTWARE.
+              </p>
+              <p class="text-sm sm:text-base text-neutral-400 leading-relaxed">
+                Based in Madurai, Tamil Nadu with 4+ years of hands-on experience building desktop and web applications. Specializing in C#, .NET, WPF, UWP, WinUI3, ASP.NET MVC, and ASP.NET Core with proven expertise in MVVM/MVC architectures, deep bug resolution, and Agile teamwork.
+              </p>
+            </div>
+
+            <!-- Academic Credentials Block -->
+            <div class="p-5 border border-[#222222] bg-[#111111] space-y-2">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <span class="font-mono text-xs uppercase tracking-widest text-[#FF4D00]">EDUCATION // 2018–2021</span>
+                <span class="font-mono text-xs px-2.5 py-0.5 bg-[#FF4D00]/15 text-[#FF4D00] border border-[#FF4D00]/40">SCORE: 81%</span>
+              </div>
+              <h3 class="font-sans font-bold text-lg text-white uppercase">B.Sc. Information Technology</h3>
+              <p class="text-sm text-neutral-300">Sourashtra College (Autonomous), Kamarajar University</p>
+              <p class="font-mono text-xs text-neutral-500 pt-1">
+                XII Std: PKN Higher Secondary School (70%) &bull; X Std: Pasumalai C.S.I. Boys HSS (90.6%)
+              </p>
+            </div>
+
+            <!-- Competencies & Spoken Languages -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-[#222222]">
+              <div>
+                <span class="font-mono text-[11px] uppercase tracking-widest text-neutral-500 block mb-2">CORE STRENGTHS</span>
+                <ul class="space-y-1.5 text-xs sm:text-sm text-neutral-300">
+                  <li><span class="text-[#FF4D00] mr-1.5">+</span>Problem-solving &amp; analytical rigor</li>
+                  <li><span class="text-[#FF4D00] mr-1.5">+</span>Adaptable &amp; calm under pressure</li>
+                  <li><span class="text-[#FF4D00] mr-1.5">+</span>Self-motivated continuous learner</li>
+                  <li><span class="text-[#FF4D00] mr-1.5">+</span>Cross-functional Agile communicator</li>
+                </ul>
+              </div>
+              <div>
+                <span class="font-mono text-[11px] uppercase tracking-widest text-neutral-500 block mb-2">LANGUAGES</span>
+                <div class="space-y-2">
+                  <div class="p-2.5 border border-[#222222] bg-[#111111] flex items-center justify-between font-mono text-xs">
+                    <span class="text-white font-semibold">ENGLISH</span>
+                    <span class="text-[#FF4D00]">PROFESSIONAL</span>
+                  </div>
+                  <div class="p-2.5 border border-[#222222] bg-[#111111] flex items-center justify-between font-mono text-xs">
+                    <span class="text-white font-semibold">TAMIL</span>
+                    <span class="text-neutral-400">NATIVE</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right 6 Cols: Interactive Code Profile Terminal -->
+          <div class="lg:col-span-6 flex flex-col justify-between bg-[#0C0C0C] reveal-up">
+            <!-- Terminal Top Bar -->
+            <div class="px-5 py-3.5 border-b border-[#222222] bg-[#111111] flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-[#FF4D00]"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-neutral-600"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-neutral-700"></span>
+                <div class="ml-3 flex items-center gap-1">
+                  <button type="button" data-code-tab="csharp" class="code-tab-btn cursor-hover px-3 py-1 font-mono text-xs uppercase bg-[#FF4D00] text-white font-bold transition-colors">
+                    Profile.cs
+                  </button>
+                  <button type="button" data-code-tab="json" class="code-tab-btn cursor-hover px-3 py-1 font-mono text-xs uppercase text-neutral-400 hover:text-white border border-[#222222] transition-colors">
+                    TechStack.json
+                  </button>
+                </div>
+              </div>
+
+              <button id="copy-code-btn" type="button" class="cursor-hover inline-flex items-center gap-1.5 px-3 py-1 border border-[#2A2A2A] hover:border-[#FF4D00] font-mono text-xs uppercase text-neutral-300 hover:text-white transition-colors">
+                <span id="copy-code-label">COPY CODE</span>
+              </button>
+            </div>
+
+            <!-- Code Content -->
+            <div class="p-6 sm:p-8 font-mono text-xs sm:text-[13px] leading-relaxed overflow-x-auto flex-1 flex items-center">
+              <pre id="code-panel-csharp" class="w-full text-neutral-300"><code><span class="text-neutral-500">// Software Developer Profile &amp; Architecture</span>
+<span class="text-[#FF4D00]">namespace</span> <span class="text-white font-semibold">BharathDev.Portfolio</span>;
+
+<span class="text-[#FF4D00]">public class</span> <span class="text-white font-bold">BharathS</span>
+{
+    <span class="text-[#FF4D00]">public string</span> Name =&gt; <span class="text-amber-300">"Bharath S"</span>;
+    <span class="text-[#FF4D00]">public string</span> Role =&gt; <span class="text-amber-300">"Software Developer (.NET / WPF / Web)"</span>;
+    <span class="text-[#FF4D00]">public string</span> Location =&gt; <span class="text-amber-300">"Madurai, Tamil Nadu, India"</span>;
+
+    <span class="text-[#FF4D00]">public string</span>[] DesktopStack =&gt; <span class="text-[#FF4D00]">new</span>[] { <span class="text-amber-300">"WPF"</span>, <span class="text-amber-300">"UWP"</span>, <span class="text-amber-300">"WinUI3"</span>, <span class="text-amber-300">"MVVM"</span> };
+    <span class="text-[#FF4D00]">public string</span>[] CloudAndWeb =&gt; <span class="text-[#FF4D00]">new</span>[] { <span class="text-amber-300">"ASP.NET Core"</span>, <span class="text-amber-300">"Azure Blob/Queue"</span>, <span class="text-amber-300">"Service Bus"</span> };
+
+    <span class="text-[#FF4D00]">public bool</span> IsAvailableForHire() =&gt; <span class="text-emerald-400">true</span>;
+}</code></pre>
+
+              <pre id="code-panel-json" class="w-full text-neutral-300 hidden"><code>{
+  <span class="text-[#FF4D00]">"developer"</span>: <span class="text-white">"Bharath S"</span>,
+  <span class="text-[#FF4D00]">"experienceYears"</span>: <span class="text-emerald-400">4</span>,
+  <span class="text-[#FF4D00]">"languages"</span>: [<span class="text-amber-300">"C#"</span>, <span class="text-amber-300">"C++"</span>, <span class="text-amber-300">"C"</span>, <span class="text-amber-300">"SQL"</span>, <span class="text-amber-300">"JavaScript"</span>],
+  <span class="text-[#FF4D00]">"azureServices"</span>: [
+    <span class="text-amber-300">"Azure Blob Storage"</span>,
+    <span class="text-amber-300">"Azure Queue Storage"</span>,
+    <span class="text-amber-300">"Azure Table Storage (NoSQL)"</span>,
+    <span class="text-amber-300">"Azure Service Bus"</span>
+  ],
+  <span class="text-[#FF4D00]">"aiTools"</span>: [<span class="text-amber-300">"Cursor"</span>, <span class="text-amber-300">"Claude"</span>, <span class="text-amber-300">"PowerAutomate"</span>]
+}</code></pre>
+            </div>
+
+            <div class="px-5 py-3 border-t border-[#222222] bg-[#111111] flex items-center justify-between font-mono text-[11px] text-neutral-500">
+              <span>UTF-8 // C# 12 / .NET 8</span>
+              <span class="text-emerald-400">● READY TO COMPILE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 6. 04 // SERVICES (INTERACTIVE ACCORDION) ==================== -->
+    <section id="services" class="border-b border-[#222222]">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-16 sm:py-24">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-10 border-b border-[#222222] reveal-up">
+          <div>
+            <span class="font-mono text-xs uppercase tracking-widest text-[#FF4D00]">04 // SERVICES</span>
+            <h2 class="font-display text-5xl sm:text-7xl lg:text-8xl uppercase tracking-tight text-white mt-2 leading-none">
+              ENGINEERING CAPABILITIES
+            </h2>
+          </div>
+          <p class="font-mono text-xs uppercase tracking-wider text-neutral-400 max-w-xs">
+            CLICK OR HOVER ANY DISCIPLINE TO EXPAND TECHNICAL SCOPE.
+          </p>
+        </div>
+
+        <div class="divide-y divide-[#222222] border-b border-[#222222]">
+          <!-- Service 01 -->
+          <div class="accordion-item active cursor-hover py-7 sm:py-9 px-2 sm:px-4 transition-colors hover:bg-[#111111]">
+            <button type="button" class="accordion-trigger w-full flex items-center justify-between gap-4 text-left">
+              <div class="flex items-baseline gap-4 sm:gap-8">
+                <span class="font-mono text-sm sm:text-base text-[#FF4D00] font-bold">01</span>
+                <h3 class="font-display text-3xl sm:text-5xl uppercase tracking-tight text-white">DESKTOP APP DEVELOPMENT</h3>
+              </div>
+              <span class="accordion-icon font-mono text-2xl sm:text-3xl text-neutral-400 transition-transform duration-300">+</span>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-inner">
+                <div class="pt-5 pl-8 sm:pl-14 max-w-3xl space-y-3">
+                  <p class="text-sm sm:text-base text-neutral-300 leading-relaxed">
+                    Custom Windows desktop applications engineered with WPF, UWP, WinUI3, C#, and strict MVVM architecture—featuring custom OS controls, hardware/API integrations, and fluid storyboard animations.
+                  </p>
+                  <div class="flex flex-wrap gap-2 font-mono text-[11px] text-[#FF4D00]">
+                    <span>[WPF]</span>
+                    <span>[UWP]</span>
+                    <span>[WINUI3]</span>
+                    <span>[MVVM ARCHITECTURE]</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Service 02 -->
+          <div class="accordion-item cursor-hover py-7 sm:py-9 px-2 sm:px-4 transition-colors hover:bg-[#111111]">
+            <button type="button" class="accordion-trigger w-full flex items-center justify-between gap-4 text-left">
+              <div class="flex items-baseline gap-4 sm:gap-8">
+                <span class="font-mono text-sm sm:text-base text-[#FF4D00] font-bold">02</span>
+                <h3 class="font-display text-3xl sm:text-5xl uppercase tracking-tight text-white">CLOUD &amp; BACKEND SOLUTIONS</h3>
+              </div>
+              <span class="accordion-icon font-mono text-2xl sm:text-3xl text-neutral-400 transition-transform duration-300">+</span>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-inner">
+                <div class="pt-5 pl-8 sm:pl-14 max-w-3xl space-y-3">
+                  <p class="text-sm sm:text-base text-neutral-300 leading-relaxed">
+                    High-throughput ASP.NET Core RESTful APIs and Microsoft Azure cloud architectures leveraging Blob Storage, Queue Storage, Table Storage (NoSQL), and Azure Service Bus for decoupled event-driven workflows.
+                  </p>
+                  <div class="flex flex-wrap gap-2 font-mono text-[11px] text-[#FF4D00]">
+                    <span>[ASP.NET CORE]</span>
+                    <span>[AZURE BLOB &amp; QUEUE]</span>
+                    <span>[AZURE SERVICE BUS]</span>
+                    <span>[NOSQL TABLE SDK]</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Service 03 -->
+          <div class="accordion-item cursor-hover py-7 sm:py-9 px-2 sm:px-4 transition-colors hover:bg-[#111111]">
+            <button type="button" class="accordion-trigger w-full flex items-center justify-between gap-4 text-left">
+              <div class="flex items-baseline gap-4 sm:gap-8">
+                <span class="font-mono text-sm sm:text-base text-[#FF4D00] font-bold">03</span>
+                <h3 class="font-display text-3xl sm:text-5xl uppercase tracking-tight text-white">WEB DEVELOPMENT</h3>
+              </div>
+              <span class="accordion-icon font-mono text-2xl sm:text-3xl text-neutral-400 transition-transform duration-300">+</span>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-inner">
+                <div class="pt-5 pl-8 sm:pl-14 max-w-3xl space-y-3">
+                  <p class="text-sm sm:text-base text-neutral-300 leading-relaxed">
+                    Full-stack ASP.NET MVC web applications equipped with secure authentication, role-based access control (RBAC), dynamic form builders, client/server validation, and responsive frontends.
+                  </p>
+                  <div class="flex flex-wrap gap-2 font-mono text-[11px] text-[#FF4D00]">
+                    <span>[ASP.NET MVC]</span>
+                    <span>[RBAC SECURITY]</span>
+                    <span>[FIRESTORE / SQL]</span>
+                    <span>[HTML / CSS / JS]</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Service 04 -->
+          <div class="accordion-item cursor-hover py-7 sm:py-9 px-2 sm:px-4 transition-colors hover:bg-[#111111]">
+            <button type="button" class="accordion-trigger w-full flex items-center justify-between gap-4 text-left">
+              <div class="flex items-baseline gap-4 sm:gap-8">
+                <span class="font-mono text-sm sm:text-base text-[#FF4D00] font-bold">04</span>
+                <h3 class="font-display text-3xl sm:text-5xl uppercase tracking-tight text-white">AGILE &amp; PROBLEM SOLVING</h3>
+              </div>
+              <span class="accordion-icon font-mono text-2xl sm:text-3xl text-neutral-400 transition-transform duration-300">+</span>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-inner">
+                <div class="pt-5 pl-8 sm:pl-14 max-w-3xl space-y-3">
+                  <p class="text-sm sm:text-base text-neutral-300 leading-relaxed">
+                    Structured root-cause debugging, unit testing, legacy refactoring, and seamless cross-functional collaboration with QA and product teams inside Agile/SCRUM delivery cycles.
+                  </p>
+                  <div class="flex flex-wrap gap-2 font-mono text-[11px] text-[#FF4D00]">
+                    <span>[AGILE / SCRUM]</span>
+                    <span>[ROOT-CAUSE DEBUGGING]</span>
+                    <span>[QA COLLABORATION]</span>
+                    <span>[AI WORKFLOWS: CURSOR / CLAUDE]</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 7. 05 // STATS & METRICS (BRUTALIST COUNTERS) ==================== -->
+    <section id="metrics" class="border-b border-[#222222] bg-[#0D0D0D]">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-16 sm:py-20">
+        <div class="mb-8 font-mono text-xs uppercase tracking-widest text-[#FF4D00]">
+          05 // STATS &amp; METRICS
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border border-[#222222] bg-[#0A0A0A]">
+          <!-- Metric 1 -->
+          <div class="p-8 sm:p-10 border-b sm:border-b-0 sm:border-r border-[#222222] flex flex-col justify-between">
+            <span class="font-mono text-xs uppercase tracking-widest text-neutral-500">EXPERIENCE</span>
+            <div class="font-display text-6xl sm:text-7xl lg:text-8xl text-white my-4 leading-none">
+              <span class="counter" data-target="4">0</span><span class="text-[#FF4D00]">+</span>
+            </div>
+            <p class="font-mono text-xs uppercase tracking-wider text-neutral-300">YEARS CODING IN .NET</p>
+          </div>
+
+          <!-- Metric 2 -->
+          <div class="p-8 sm:p-10 border-b lg:border-b-0 lg:border-r border-[#222222] flex flex-col justify-between">
+            <span class="font-mono text-xs uppercase tracking-widest text-neutral-500">SHIPPED SYSTEMS</span>
+            <div class="font-display text-6xl sm:text-7xl lg:text-8xl text-white my-4 leading-none">
+              <span class="counter" data-target="6">0</span><span class="text-[#FF4D00]">+</span>
+            </div>
+            <p class="font-mono text-xs uppercase tracking-wider text-neutral-300">PRODUCTION PROJECTS</p>
+          </div>
+
+          <!-- Metric 3 -->
+          <div class="p-8 sm:p-10 border-b sm:border-b-0 sm:border-r border-[#222222] flex flex-col justify-between">
+            <span class="font-mono text-xs uppercase tracking-widest text-neutral-500">RELIABILITY</span>
+            <div class="font-display text-6xl sm:text-7xl lg:text-8xl text-white my-4 leading-none">
+              <span class="counter" data-target="100">0</span><span class="text-[#FF4D00]">%</span>
+            </div>
+            <p class="font-mono text-xs uppercase tracking-wider text-neutral-300">CODE QUALITY STANDARD</p>
+          </div>
+
+          <!-- Metric 4 -->
+          <div class="p-8 sm:p-10 flex flex-col justify-between">
+            <span class="font-mono text-xs uppercase tracking-widest text-neutral-500">VERSATILITY</span>
+            <div class="font-display text-6xl sm:text-7xl lg:text-8xl text-white my-4 leading-none">
+              <span class="counter" data-target="4">0</span><span class="text-[#FF4D00]">+</span>
+            </div>
+            <p class="font-mono text-xs uppercase tracking-wider text-neutral-300">CORE TECH STACKS</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 8. 06 // EXPERIENCE (2021 - PRESENT TIMELINE) ==================== -->
+    <section id="experience" class="border-b border-[#222222]">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-16 sm:py-24">
+        <div class="flex flex-wrap items-baseline justify-between gap-4 pb-10 border-b border-[#222222] reveal-up">
+          <div>
+            <span class="font-mono text-xs uppercase tracking-widest text-[#FF4D00]">06 // EXPERIENCE</span>
+            <h2 class="font-display text-5xl sm:text-7xl lg:text-8xl uppercase tracking-tight text-white mt-2 leading-none">
+              CAREER TIMELINE
+            </h2>
+          </div>
+          <span class="font-mono text-xs uppercase tracking-widest text-neutral-400">
+            [2021 — PRESENT]
+          </span>
+        </div>
+
+        <div class="divide-y divide-[#222222] border-b border-[#222222]">
+          <!-- Role 1: Touchtier Technology -->
+          <div class="py-8 sm:py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 reveal-up">
+            <div class="lg:col-span-3 font-mono text-xs space-y-1.5">
+              <span class="inline-block px-2.5 py-1 bg-[#FF4D00] text-white font-bold uppercase">DEC 2024 — PRESENT</span>
+              <p class="text-neutral-400 uppercase pt-1">TOUCHTIER TECHNOLOGY</p>
+            </div>
+            <div class="lg:col-span-9 space-y-4">
+              <h3 class="font-sans font-bold text-2xl sm:text-3xl uppercase text-white">
+                Software Developer
+              </h3>
+              <p class="text-sm sm:text-base text-neutral-300 leading-relaxed">
+                Developing and maintaining software applications using .NET technologies. Contributing to feature development, issue resolution, and application enhancements in collaborative teams.
+              </p>
+              <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 font-mono text-xs text-neutral-300">
+                <li class="p-3 border border-[#222222] bg-[#111111]">
+                  <span class="text-[#FF4D00] font-bold">01.</span> Implemented Azure Blob Storage for secure file uploads &amp; container management.
+                </li>
+                <li class="p-3 border border-[#222222] bg-[#111111]">
+                  <span class="text-[#FF4D00] font-bold">02.</span> Used Azure Queue Storage for asynchronous background processing &amp; decoupled workflows.
+                </li>
+                <li class="p-3 border border-[#222222] bg-[#111111]">
+                  <span class="text-[#FF4D00] font-bold">03.</span> Worked with Azure Table Storage (NoSQL) using Azure.Data.Tables SDK.
+                </li>
+                <li class="p-3 border border-[#222222] bg-[#111111]">
+                  <span class="text-[#FF4D00] font-bold">04.</span> Integrated Azure Service Bus queues for message-driven, event-based processing.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Role 2: Coding Bees Technology -->
+          <div class="py-8 sm:py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 reveal-up">
+            <div class="lg:col-span-3 font-mono text-xs space-y-1.5">
+              <span class="inline-block px-2.5 py-1 border border-[#2A2A2A] bg-[#111111] text-white font-bold uppercase">JAN 2022 — NOV 2024</span>
+              <p class="text-[#FF4D00] uppercase pt-1">CODING BEES TECHNOLOGY</p>
+            </div>
+            <div class="lg:col-span-9 space-y-3">
+              <h3 class="font-sans font-bold text-2xl sm:text-3xl uppercase text-white">
+                Software Developer (WPF / C#)
+              </h3>
+              <p class="text-sm sm:text-base text-neutral-300 leading-relaxed">
+                Designed and developed desktop applications using WPF and C# following the MVVM pattern. Implemented UI enhancements, animations, and custom controls to elevate desktop user experience.
+              </p>
+            </div>
+          </div>
+
+          <!-- Role 3: 365 Labs -->
+          <div class="py-8 sm:py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 reveal-up">
+            <div class="lg:col-span-3 font-mono text-xs space-y-1.5">
+              <span class="inline-block px-2.5 py-1 border border-[#2A2A2A] bg-[#111111] text-neutral-300 font-bold uppercase">DURING CODING BEES</span>
+              <p class="text-[#FF4D00] uppercase pt-1">365 LABS</p>
+            </div>
+            <div class="lg:col-span-9 space-y-3">
+              <h3 class="font-sans font-bold text-2xl sm:text-3xl uppercase text-white">
+                Software Developer — Development Team
+              </h3>
+              <p class="text-sm sm:text-base text-neutral-300 leading-relaxed">
+                Worked on law enforcement and public safety software solutions. Built responsive user interfaces and implemented new features based on user stories. Analyzed and resolved bugs while working closely with QA and product teams. Developed WPF-based desktop user interfaces and integrated them with ASP.NET Core backend APIs for data processing and system communication.
+              </p>
+            </div>
+          </div>
+
+          <!-- Role 4: EHYEH Consultancy Services -->
+          <div class="py-8 sm:py-10 grid grid-cols-1 lg:grid-cols-12 gap-6 reveal-up">
+            <div class="lg:col-span-3 font-mono text-xs space-y-1.5">
+              <span class="inline-block px-2.5 py-1 border border-[#2A2A2A] bg-[#111111] text-neutral-400 font-bold uppercase">JUN 2021 — DEC 2021</span>
+              <p class="text-neutral-400 uppercase pt-1">EHYEH CONSULTANCY (BPO)</p>
+            </div>
+            <div class="lg:col-span-9 space-y-3">
+              <h3 class="font-sans font-bold text-2xl sm:text-3xl uppercase text-white">
+                Sales Lead Generation Specialist &amp; Team Leader
+              </h3>
+              <p class="text-sm sm:text-base text-neutral-300 leading-relaxed">
+                Led a team responsible for sales lead generation activities. Ensured performance targets were met while maintaining quality standards, coordinating closely with team members and management to track progress and results.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 9. 07 // STACK & TOOLS (BENTO PROFICIENCY GRID) ==================== -->
+    <section id="stack" class="border-b border-[#222222]">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-16 sm:py-24">
+        <div class="flex flex-wrap items-baseline justify-between gap-4 pb-10 border-b border-[#222222] reveal-up">
+          <div>
+            <span class="font-mono text-xs uppercase tracking-widest text-[#FF4D00]">07 // STACK &amp; TOOLS</span>
+            <h2 class="font-display text-5xl sm:text-7xl lg:text-8xl uppercase tracking-tight text-white mt-2 leading-none">
+              CORE PROFICIENCIES
+            </h2>
+          </div>
+          <span class="font-mono text-xs uppercase tracking-widest text-neutral-400">
+            DESKTOP • WEB • CLOUD • DATABASE
+          </span>
+        </div>
+
+        <!-- Bento Grid of 6 Skill Cards -->
+        <div id="stack-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-x border-b border-[#222222]">
+          <!-- Skill 1 -->
+          <div class="p-7 sm:p-9 border-b md:border-r border-[#222222] bg-[#0A0A0A] hover:bg-[#111111] transition-colors flex flex-col justify-between space-y-6">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="font-mono text-[11px] text-neutral-500 uppercase">PRIMARY LANGUAGE</span>
+                <h3 class="font-sans font-bold text-xl text-white uppercase mt-1">C# / .NET Framework</h3>
+              </div>
+              <span class="font-display text-4xl text-[#FF4D00]">95%</span>
+            </div>
+            <div class="w-full h-2 bg-[#1D1D1D] overflow-hidden">
+              <div class="stack-bar-fill h-full bg-[#FF4D00]" data-width="95%"></div>
+            </div>
+          </div>
+
+          <!-- Skill 2 -->
+          <div class="p-7 sm:p-9 border-b lg:border-r border-[#222222] bg-[#0A0A0A] hover:bg-[#111111] transition-colors flex flex-col justify-between space-y-6">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="font-mono text-[11px] text-neutral-500 uppercase">DESKTOP UI &amp; MVVM</span>
+                <h3 class="font-sans font-bold text-xl text-white uppercase mt-1">WPF / UWP / WinUI3</h3>
+              </div>
+              <span class="font-display text-4xl text-[#FF4D00]">90%</span>
+            </div>
+            <div class="w-full h-2 bg-[#1D1D1D] overflow-hidden">
+              <div class="stack-bar-fill h-full bg-[#FF4D00]" data-width="90%"></div>
+            </div>
+          </div>
+
+          <!-- Skill 3 -->
+          <div class="p-7 sm:p-9 border-b md:border-r lg:border-r-0 border-[#222222] bg-[#0A0A0A] hover:bg-[#111111] transition-colors flex flex-col justify-between space-y-6">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="font-mono text-[11px] text-neutral-500 uppercase">WEB &amp; REST APIS</span>
+                <h3 class="font-sans font-bold text-xl text-white uppercase mt-1">ASP.NET Core / MVC</h3>
+              </div>
+              <span class="font-display text-4xl text-[#FF4D00]">85%</span>
+            </div>
+            <div class="w-full h-2 bg-[#1D1D1D] overflow-hidden">
+              <div class="stack-bar-fill h-full bg-[#FF4D00]" data-width="85%"></div>
+            </div>
+          </div>
+
+          <!-- Skill 4 -->
+          <div class="p-7 sm:p-9 border-b lg:border-b-0 lg:border-r border-[#222222] bg-[#0A0A0A] hover:bg-[#111111] transition-colors flex flex-col justify-between space-y-6">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="font-mono text-[11px] text-neutral-500 uppercase">CLOUD &amp; MESSAGING</span>
+                <h3 class="font-sans font-bold text-xl text-white uppercase mt-1">Microsoft Azure</h3>
+              </div>
+              <span class="font-display text-4xl text-[#FF4D00]">85%</span>
+            </div>
+            <div class="w-full h-2 bg-[#1D1D1D] overflow-hidden">
+              <div class="stack-bar-fill h-full bg-[#FF4D00]" data-width="85%"></div>
+            </div>
+          </div>
+
+          <!-- Skill 5 -->
+          <div class="p-7 sm:p-9 border-b md:border-b-0 md:border-r border-[#222222] bg-[#0A0A0A] hover:bg-[#111111] transition-colors flex flex-col justify-between space-y-6">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="font-mono text-[11px] text-neutral-500 uppercase">RELATIONAL DATABASE</span>
+                <h3 class="font-sans font-bold text-xl text-white uppercase mt-1">Microsoft SQL Server</h3>
+              </div>
+              <span class="font-display text-4xl text-[#FF4D00]">85%</span>
+            </div>
+            <div class="w-full h-2 bg-[#1D1D1D] overflow-hidden">
+              <div class="stack-bar-fill h-full bg-[#FF4D00]" data-width="85%"></div>
+            </div>
+          </div>
+
+          <!-- Skill 6 -->
+          <div class="p-7 sm:p-9 bg-[#0A0A0A] hover:bg-[#111111] transition-colors flex flex-col justify-between space-y-6">
+            <div class="flex items-start justify-between">
+              <div>
+                <span class="font-mono text-[11px] text-neutral-500 uppercase">FRONTEND &amp; SCRIPTING</span>
+                <h3 class="font-sans font-bold text-xl text-white uppercase mt-1">JavaScript / HTML / CSS</h3>
+              </div>
+              <span class="font-display text-4xl text-[#FF4D00]">75%</span>
+            </div>
+            <div class="w-full h-2 bg-[#1D1D1D] overflow-hidden">
+              <div class="stack-bar-fill h-full bg-[#FF4D00]" data-width="75%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 10. 08 // FAQ (INTERACTIVE NUMBERED ACCORDION) ==================== -->
+    <section id="faq" class="border-b border-[#222222]">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-16 sm:py-24">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          <!-- Left 4 Cols -->
+          <div class="lg:col-span-4 space-y-4 reveal-up">
+            <span class="font-mono text-xs uppercase tracking-widest text-[#FF4D00]">08 // FAQ</span>
+            <h2 class="font-display text-5xl sm:text-6xl uppercase tracking-tight text-white leading-none">
+              COMMON QUESTIONS
+            </h2>
+            <p class="text-sm text-neutral-400 leading-relaxed">
+              Quick answers for hiring managers, engineering leads, and clients evaluating my .NET, WPF, and Azure capabilities.
+            </p>
+          </div>
+
+          <!-- Right 8 Cols: Accordion -->
+          <div class="lg:col-span-8 divide-y divide-[#222222] border-y border-[#222222]">
+            <!-- FAQ 1 -->
+            <div class="accordion-item active cursor-hover py-6 px-2 transition-colors hover:bg-[#111111]">
+              <button type="button" class="accordion-trigger w-full flex items-center justify-between gap-4 text-left">
+                <span class="font-sans font-bold text-lg sm:text-xl text-white">
+                  <span class="font-mono text-xs text-[#FF4D00] mr-3">01</span>Are you currently available for full-time roles or freelance projects?
+                </span>
+                <span class="accordion-icon font-mono text-2xl text-neutral-400 transition-transform duration-300">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-inner">
+                  <p class="pt-4 pl-7 text-sm sm:text-base text-neutral-400 leading-relaxed">
+                    Yes. I am actively open to Software Developer opportunities in .NET, WPF/WinUI3 desktop engineering, ASP.NET Core backend development, and Microsoft Azure cloud integration—both onsite/hybrid in Tamil Nadu and remote collaborations.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="accordion-item cursor-hover py-6 px-2 transition-colors hover:bg-[#111111]">
+              <button type="button" class="accordion-trigger w-full flex items-center justify-between gap-4 text-left">
+                <span class="font-sans font-bold text-lg sm:text-xl text-white">
+                  <span class="font-mono text-xs text-[#FF4D00] mr-3">02</span>What is your core specialization within the .NET &amp; Windows ecosystem?
+                </span>
+                <span class="accordion-icon font-mono text-2xl text-neutral-400 transition-transform duration-300">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-inner">
+                  <p class="pt-4 pl-7 text-sm sm:text-base text-neutral-400 leading-relaxed">
+                    With 4+ years of production experience, I specialize in C#, WPF, UWP, and WinUI3 using strict MVVM architecture, custom Windows system controls, real-time storyboard animations, and integrating desktop clients with ASP.NET Core REST APIs.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="accordion-item cursor-hover py-6 px-2 transition-colors hover:bg-[#111111]">
+              <button type="button" class="accordion-trigger w-full flex items-center justify-between gap-4 text-left">
+                <span class="font-sans font-bold text-lg sm:text-xl text-white">
+                  <span class="font-mono text-xs text-[#FF4D00] mr-3">03</span>Which Microsoft Azure services have you implemented in production?
+                </span>
+                <span class="accordion-icon font-mono text-2xl text-neutral-400 transition-transform duration-300">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-inner">
+                  <p class="pt-4 pl-7 text-sm sm:text-base text-neutral-400 leading-relaxed">
+                    At Touchtier Technology, I have implemented Azure Blob Storage for secure container file management, Azure Queue Storage for asynchronous background jobs, Azure Table Storage (NoSQL) via the Azure.Data.Tables SDK, and Azure Service Bus for event-driven messaging.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- FAQ 4 -->
+            <div class="accordion-item cursor-hover py-6 px-2 transition-colors hover:bg-[#111111]">
+              <button type="button" class="accordion-trigger w-full flex items-center justify-between gap-4 text-left">
+                <span class="font-sans font-bold text-lg sm:text-xl text-white">
+                  <span class="font-mono text-xs text-[#FF4D00] mr-3">04</span>How do you collaborate with QA, product teams, and modern AI tooling?
+                </span>
+                <span class="accordion-icon font-mono text-2xl text-neutral-400 transition-transform duration-300">+</span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-inner">
+                  <p class="pt-4 pl-7 text-sm sm:text-base text-neutral-400 leading-relaxed">
+                    I thrive in Agile/SCRUM sprints—translating user stories into clean PRs, partnering closely with QA on mission-critical domains like law enforcement (365 Labs), and leveraging modern AI productivity tools like Cursor, Claude, and PowerAutomate to accelerate delivery without compromising code quality.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 11. LET'S WORK TOGETHER (CONTACT & EDITORIAL FOOTER) ==================== -->
+    <section id="contact" class="bg-[#0A0A0A]">
+      <!-- Reverse Kinetic Marquee Banner -->
+      <div class="marquee-wrapper py-6 sm:py-8 border-b border-[#222222] select-none overflow-hidden bg-[#111111]">
+        <div class="marquee-track-right items-center">
+          <span class="font-display text-6xl sm:text-8xl lg:text-9xl uppercase tracking-tight text-white pr-8">
+            LET’S WORK TOGETHER <span class="text-[#FF4D00]">&#8599;</span> AVAILABLE FOR HIRE <span class="text-[#FF4D00]">//</span>
+          </span>
+          <span class="font-display text-6xl sm:text-8xl lg:text-9xl uppercase tracking-tight text-white pr-8">
+            LET’S WORK TOGETHER <span class="text-[#FF4D00]">&#8599;</span> AVAILABLE FOR HIRE <span class="text-[#FF4D00]">//</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Contact Split Grid -->
+      <div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 border-b border-[#222222]">
+        <!-- Left 5 Cols: Direct Contact Info & Copy Buttons -->
+        <div class="lg:col-span-5 p-6 sm:p-10 lg:p-14 border-b lg:border-b-0 lg:border-r border-[#222222] flex flex-col justify-between space-y-10">
+          <div class="space-y-4">
+            <span class="font-mono text-xs uppercase tracking-widest text-[#FF4D00]">09 // INITIATE CONTACT</span>
+            <h2 class="font-display text-5xl sm:text-6xl uppercase tracking-tight text-white leading-none">
+              GET IN TOUCH
+            </h2>
+            <p class="text-sm sm:text-base text-neutral-400 leading-relaxed">
+              Looking for a dedicated .NET, WPF, or Azure Software Developer? Reach out directly via email or phone, or send a structured inquiry.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <!-- Email Row -->
+            <div class="p-4 border border-[#222222] bg-[#111111] hover:border-[#FF4D00] transition-colors flex items-center justify-between gap-3">
+              <a href="mailto:bharath.s1507@gmail.com" class="min-w-0">
+                <span class="font-mono text-[10px] uppercase tracking-widest text-neutral-500 block">EMAIL ADDRESS</span>
+                <span class="font-mono text-sm sm:text-base font-bold text-white truncate block">bharath.s1507@gmail.com</span>
+              </a>
+              <button type="button" data-copy="bharath.s1507@gmail.com" data-label="Email" class="copy-contact-btn cursor-hover px-3 py-1.5 border border-[#2A2A2A] hover:bg-[#FF4D00] hover:border-[#FF4D00] font-mono text-[11px] uppercase text-white transition-colors shrink-0">
+                COPY
+              </button>
+            </div>
+
+            <!-- Mobile Row -->
+            <div class="p-4 border border-[#222222] bg-[#111111] hover:border-[#FF4D00] transition-colors flex items-center justify-between gap-3">
+              <a href="tel:9360076729" class="min-w-0">
+                <span class="font-mono text-[10px] uppercase tracking-widest text-neutral-500 block">MOBILE PHONE</span>
+                <span class="font-mono text-sm sm:text-base font-bold text-white truncate block">+91 9360076729</span>
+              </a>
+              <button type="button" data-copy="9360076729" data-label="Mobile number" class="copy-contact-btn cursor-hover px-3 py-1.5 border border-[#2A2A2A] hover:bg-[#FF4D00] hover:border-[#FF4D00] font-mono text-[11px] uppercase text-white transition-colors shrink-0">
+                COPY
+              </button>
+            </div>
+
+            <!-- Location Row -->
+            <div class="p-4 border border-[#222222] bg-[#111111]">
+              <span class="font-mono text-[10px] uppercase tracking-widest text-neutral-500 block">LOCATION</span>
+              <span class="font-mono text-sm font-semibold text-white">Madurai, Tamil Nadu, India</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right 7 Cols: Editorial Contact Form -->
+        <div class="lg:col-span-7 p-6 sm:p-10 lg:p-14 bg-[#0D0D0D]">
+          <form id="contact-form" class="space-y-6" novalidate>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <label for="sender-name" class="block font-mono text-xs uppercase tracking-widest text-neutral-400 mb-2">YOUR NAME *</label>
+                <input id="sender-name" name="name" type="text" required placeholder="JOHN DOE" class="w-full px-4 py-3.5 bg-[#0A0A0A] border border-[#222222] focus:border-[#FF4D00] focus:outline-none text-sm text-white placeholder-neutral-600 font-mono transition-colors" />
+              </div>
+              <div>
+                <label for="sender-email" class="block font-mono text-xs uppercase tracking-widest text-neutral-400 mb-2">YOUR EMAIL *</label>
+                <input id="sender-email" name="email" type="email" required placeholder="JOHN@COMPANY.COM" class="w-full px-4 py-3.5 bg-[#0A0A0A] border border-[#222222] focus:border-[#FF4D00] focus:outline-none text-sm text-white placeholder-neutral-600 font-mono transition-colors" />
+              </div>
+            </div>
+
+            <div>
+              <label for="sender-subject" class="block font-mono text-xs uppercase tracking-widest text-neutral-400 mb-2">SUBJECT *</label>
+              <input id="sender-subject" name="subject" type="text" required placeholder="SOFTWARE DEVELOPER OPPORTUNITY / .NET PROJECT" class="w-full px-4 py-3.5 bg-[#0A0A0A] border border-[#222222] focus:border-[#FF4D00] focus:outline-none text-sm text-white placeholder-neutral-600 font-mono transition-colors" />
+            </div>
+
+            <div>
+              <label for="sender-message" class="block font-mono text-xs uppercase tracking-widest text-neutral-400 mb-2">MESSAGE *</label>
+              <textarea id="sender-message" name="message" rows="4" required placeholder="HI BHARATH, I REVIEWED YOUR PORTFOLIO AND WOULD LIKE TO DISCUSS..." class="w-full px-4 py-3.5 bg-[#0A0A0A] border border-[#222222] focus:border-[#FF4D00] focus:outline-none text-sm text-white placeholder-neutral-600 font-mono transition-colors resize-none"></textarea>
+            </div>
+
+            <div id="form-feedback" class="hidden p-4 font-mono text-xs"></div>
+
+            <button type="submit" class="cursor-hover w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-[#FF4D00] hover:bg-white text-white hover:text-[#0A0A0A] font-mono text-xs font-bold uppercase tracking-widest transition-all duration-300">
+              <span>SEND MESSAGE</span>
+              <span>&#8599;</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Bottom Swiss Footer Bar -->
+      <footer class="max-w-[1440px] mx-auto px-4 sm:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-neutral-400">
+        <div class="flex items-center gap-3">
+          <span class="font-display text-xl text-white uppercase">BHARATH<span class="text-[#FF4D00]">©</span></span>
+          <span>&copy; 2026 BHARATH S. ALL RIGHTS RESERVED.</span>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-5 uppercase">
+          <a href="#approach" class="hover:text-[#FF4D00] transition-colors">APPROACH</a>
+          <a href="#portfolio" class="hover:text-[#FF4D00] transition-colors">PORTFOLIO</a>
+          <a href="#about" class="hover:text-[#FF4D00] transition-colors">ABOUT</a>
+          <a href="#experience" class="hover:text-[#FF4D00] transition-colors">EXPERIENCE</a>
+        </div>
+
+        <button id="back-to-top-btn" type="button" class="cursor-hover inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#2A2A2A] hover:border-[#FF4D00] hover:text-white uppercase transition-colors">
+          <span>BACK TO TOP</span>
+          <span>&uarr;</span>
+        </button>
+      </footer>
+    </section>
+
+  </main>
+
+  <!-- ==================== PROJECT CASE STUDY MODAL DRAWER ==================== -->
+  <div id="project-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md">
+    <div class="bg-[#0E0E0E] border border-[#2A2A2A] max-w-2xl w-full p-6 sm:p-10 relative shadow-2xl">
+      <button id="close-modal-btn" type="button" aria-label="Close Case Study Modal" class="cursor-hover absolute top-5 right-5 w-10 h-10 rounded-full border border-[#2A2A2A] hover:border-[#FF4D00] hover:bg-[#FF4D00] text-white flex items-center justify-center font-mono text-lg transition-colors">
+        &times;
+      </button>
+
+      <div class="space-y-6">
+        <div class="flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-widest">
+          <span id="modal-org" class="px-3 py-1 bg-[#FF4D00] text-white font-bold"></span>
+          <span id="modal-category" class="px-3 py-1 border border-[#2A2A2A] bg-[#141414] text-neutral-300"></span>
+        </div>
+
+        <h3 id="modal-title" class="font-display text-3xl sm:text-5xl uppercase tracking-tight text-white leading-none"></h3>
+        <p id="modal-summary" class="text-sm sm:text-base text-neutral-300 leading-relaxed"></p>
+
+        <div class="pt-4 border-t border-[#222222]">
+          <h4 class="font-mono text-xs uppercase tracking-widest text-[#FF4D00] mb-3">KEY FEATURES &amp; ARCHITECTURE</h4>
+          <ul id="modal-bullets" class="space-y-2.5 text-sm text-neutral-200"></ul>
+        </div>
+
+        <div class="pt-4 border-t border-[#222222]">
+          <p class="font-mono text-[11px] uppercase tracking-widest text-neutral-500 mb-2.5">TECHNOLOGIES USED</p>
+          <div id="modal-tags" class="flex flex-wrap gap-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== INTERACTIVE SCRIPTS ==================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Live Real-Time Local IST Clock (Asia/Kolkata)
+      const clockEl = document.getElementById('live-ist-clock');
+      function updateISTClock() {
+        try {
+          const now = new Date();
+          const formatter = new Intl.DateTimeFormat('en-GB', {
+            timeZone: 'Asia/Kolkata',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+          });
+          if (clockEl) clockEl.textContent = `${formatter.format(now)} IST`;
+        } catch (err) {
+          if (clockEl) clockEl.textContent = '15:30:00 IST';
+        }
+      }
+      updateISTClock();
+      setInterval(updateISTClock, 1000);
+
+      // 2. Custom Magnetic Follower Cursor (Desktop)
+      const cursor = document.getElementById('custom-cursor');
+      if (cursor && window.matchMedia('(pointer: fine)').matches) {
+        let mouseX = -100, mouseY = -100;
+        let cursorX = -100, cursorY = -100;
+
+        window.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        });
+
+        function renderCursor() {
+          cursorX += (mouseX - cursorX) * 0.22;
+          cursorY += (mouseY - cursorY) * 0.22;
+          cursor.style.left = `${cursorX}px`;
+          cursor.style.top = `${cursorY}px`;
+          requestAnimationFrame(renderCursor);
+        }
+        requestAnimationFrame(renderCursor);
+
+        document.querySelectorAll('.cursor-hover, a, button').forEach((el) => {
+          el.addEventListener('mouseenter', () => cursor.classList.add('cursor-expanded'));
+          el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-expanded'));
+        });
+      }
+
+      // 3. Fullscreen Overlay Menu Controls
+      const fullscreenMenu = document.getElementById('fullscreen-menu');
+      const openMenuBtn = document.getElementById('open-menu-btn');
+      const closeMenuBtn = document.getElementById('close-menu-btn');
+
+      function openMenu() {
+        fullscreenMenu.classList.remove('hidden');
+        fullscreenMenu.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeMenu() {
+        fullscreenMenu.classList.add('hidden');
+        fullscreenMenu.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
+
+      if (openMenuBtn) openMenuBtn.addEventListener('click', openMenu);
+      if (closeMenuBtn) closeMenuBtn.addEventListener('click', closeMenu);
+      document.querySelectorAll('.menu-close-link').forEach((link) => {
+        link.addEventListener('click', closeMenu);
+      });
+
+      // 4. Toast Notification Helper
+      function showToast(message) {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'pointer-events-auto flex items-center gap-2.5 px-4 py-3 bg-[#111111] border border-[#FF4D00] text-xs font-mono uppercase tracking-wider text-white shadow-2xl transition-all duration-300';
+        toast.innerHTML = `<span class="w-2 h-2 rounded-full bg-[#FF4D00]"></span><span>${message}</span>`;
+        container.appendChild(toast);
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateY(8px)';
+          setTimeout(() => toast.remove(), 300);
+        }, 2800);
+      }
+
+      // 5. Clipboard Copy Helper (iFrame-safe execCommand fallback)
+      function copyTextToClipboard(text, successMsg) {
+        try {
+          const textArea = document.createElement('textarea');
+          textArea.value = text;
+          textArea.style.position = 'fixed';
+          textArea.style.left = '-9999px';
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          showToast(successMsg);
+        } catch (err) {
+          showToast('Unable to copy automatically.');
+        }
+      }
+
+      // 6. Three Phases Interactive Slider / Highlight
+      let activePhase = 0;
+      const phaseCards = document.querySelectorAll('.approach-card');
+      const phaseIndicator = document.getElementById('approach-step-indicator');
+
+      function setActivePhase(index) {
+        activePhase = (index + phaseCards.length) % phaseCards.length;
+        if (phaseIndicator) {
+          phaseIndicator.textContent = `PHASE [0${activePhase + 1} / 03]`;
+        }
+        phaseCards.forEach((card, idx) => {
+          const numEl = card.querySelector('.phase-num') || card.querySelector('span.font-display');
+          if (idx === activePhase) {
+            card.classList.remove('bg-[#0A0A0A]');
+            card.classList.add('bg-[#141414]');
+            if (numEl) {
+              numEl.classList.remove('text-neutral-600');
+              numEl.classList.add('text-[#FF4D00]');
+            }
+          } else {
+            card.classList.remove('bg-[#141414]', 'bg-[#121212]');
+            card.classList.add('bg-[#0A0A0A]');
+            if (numEl) {
+              numEl.classList.remove('text-[#FF4D00]');
+              numEl.classList.add('text-neutral-600');
+            }
+          }
+        });
+      }
+
+      phaseCards.forEach((card, idx) => {
+        card.addEventListener('mouseenter', () => setActivePhase(idx));
+        card.addEventListener('click', () => setActivePhase(idx));
+      });
+      const prevPhaseBtn = document.getElementById('approach-prev');
+      const nextPhaseBtn = document.getElementById('approach-next');
+      if (prevPhaseBtn) prevPhaseBtn.addEventListener('click', () => setActivePhase(activePhase - 1));
+      if (nextPhaseBtn) nextPhaseBtn.addEventListener('click', () => setActivePhase(activePhase + 1));
+
+      // 7. Interactive Code Profile Tabs & Copy
+      let activeCodeTab = 'csharp';
+      const codeSnippets = {
+        csharp: `// Software Developer Profile & Architecture
+namespace BharathDev.Portfolio;
+
+public class BharathS
+{
+    public string Name => "Bharath S";
+    public string Role => "Software Developer (.NET / WPF / Web)";
+    public string Location => "Madurai, Tamil Nadu, India";
+
+    public string[] DesktopStack => new[] { "WPF", "UWP", "WinUI3", "MVVM" };
+    public string[] CloudAndWeb => new[] { "ASP.NET Core", "Azure Blob/Queue", "Service Bus" };
+
+    public bool IsAvailableForHire() => true;
+}`,
+        json: `{
+  "developer": "Bharath S",
+  "experienceYears": 4,
+  "languages": ["C#", "C++", "C", "SQL", "JavaScript"],
+  "azureServices": [
+    "Azure Blob Storage",
+    "Azure Queue Storage",
+    "Azure Table Storage (NoSQL)",
+    "Azure Service Bus"
+  ],
+  "aiTools": ["Cursor", "Claude", "PowerAutomate"]
+}`
+      };
+
+      document.querySelectorAll('.code-tab-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          activeCodeTab = btn.dataset.codeTab;
+          document.querySelectorAll('.code-tab-btn').forEach((b) => {
+            const isActive = b.dataset.codeTab === activeCodeTab;
+            b.className = isActive
+              ? 'code-tab-btn cursor-hover px-3 py-1 font-mono text-xs uppercase bg-[#FF4D00] text-white font-bold transition-colors'
+              : 'code-tab-btn cursor-hover px-3 py-1 font-mono text-xs uppercase text-neutral-400 hover:text-white border border-[#222222] transition-colors';
+          });
+          document.getElementById('code-panel-csharp').classList.toggle('hidden', activeCodeTab !== 'csharp');
+          document.getElementById('code-panel-json').classList.toggle('hidden', activeCodeTab !== 'json');
+        });
+      });
+
+      const copyCodeBtn = document.getElementById('copy-code-btn');
+      if (copyCodeBtn) {
+        copyCodeBtn.addEventListener('click', () => {
+          const label = document.getElementById('copy-code-label');
+          copyTextToClipboard(
+            codeSnippets[activeCodeTab],
+            `COPIED ${activeCodeTab === 'csharp' ? 'PROFILE.CS' : 'TECHSTACK.JSON'}`
+          );
+          label.textContent = 'COPIED!';
+          setTimeout(() => { label.textContent = 'COPY CODE'; }, 2000);
+        });
+      }
+
+      // 8. Accordion Logic (Services & FAQ)
+      document.querySelectorAll('.accordion-trigger').forEach((trigger) => {
+        trigger.addEventListener('click', () => {
+          const item = trigger.closest('.accordion-item');
+          const parentContainer = item.parentElement;
+          const wasActive = item.classList.contains('active');
+
+          parentContainer.querySelectorAll('.accordion-item').forEach((sibling) => {
+            sibling.classList.remove('active');
+          });
+          if (!wasActive) {
+            item.classList.add('active');
+          }
+        });
+      });
+
+      // 9. Portfolio Category Filter
+      document.querySelectorAll('.project-filter-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const filter = btn.dataset.filter;
+          document.querySelectorAll('.project-filter-btn').forEach((b) => {
+            const active = b.dataset.filter === filter;
+            b.className = active
+              ? 'project-filter-btn cursor-hover px-4 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-wider bg-[#FF4D00] text-white border border-[#FF4D00] transition-all'
+              : 'project-filter-btn cursor-hover px-4 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-wider bg-transparent text-neutral-400 hover:text-white border border-[#2A2A2A] hover:border-white transition-all';
+          });
+          document.querySelectorAll('.project-row').forEach((row) => {
+            if (filter === 'all' || row.dataset.category === filter) {
+              row.classList.remove('hidden');
+            } else {
+              row.classList.add('hidden');
+            }
+          });
+        });
+      });
+
+      // 10. Project Case Study Modal Data & Handlers
+      const projectDetailsData = {
+        'taskbar': {
+          org: 'Coding Bees Technology',
+          category: 'Windows Desktop System Utility',
+          title: 'Taskbar — Custom Control App',
+          summary: 'Custom Windows Taskbar application developed to override default system behavior and enhance desktop usability with animations.',
+          bullets: [
+            'Developed a custom Windows Taskbar application to override default system behavior.',
+            'Implemented precise logic to control application visibility and enhance desktop user experience.',
+            'Created smooth animations for application launch and system taskbar handling.'
+          ],
+          tags: ['C#', 'WPF', 'Win32', 'Custom Controls', 'UI Animations']
+        },
+        'poker': {
+          org: 'Coding Bees Technology',
+          category: 'Real-Time Interactive Module',
+          title: 'Poker Game Animation Module',
+          summary: 'Animation-heavy desktop gaming module featuring card throwing physics, live timers, notifications, and real-time expressions.',
+          bullets: [
+            'Developed animation-heavy features such as card throwing, timers, and notifications.',
+            'Processed and displayed animated smiley expressions (laugh, angry, sad) in real time.',
+            'Provided ongoing application support and continuous feature updates.'
+          ],
+          tags: ['C#', 'WPF', 'MVVM', 'Storyboard Animations']
+        },
+        'dineplan': {
+          org: 'Hospitality Software System',
+          category: 'Desktop Restaurant Management',
+          title: 'Dineplan — Restaurant Software',
+          summary: 'WPF-based restaurant operations platform optimized for stability, performance, and point-of-sale efficiency.',
+          bullets: [
+            'Contributed to the development of a WPF-based restaurant management system, focusing on bug fixes and feature enhancements.',
+            'Collaborated with the team to improve application stability, performance, and overall user experience.'
+          ],
+          tags: ['C#', 'WPF', '.NET', 'SQL Server', 'Performance Optimization']
+        },
+        'mvc-form': {
+          org: 'Full-Stack Web Application',
+          category: 'Dynamic Form Engine',
+          title: 'ASP.NET MVC Form Application',
+          summary: 'Secure web application with authentication, role-based authorization, and a dynamic form builder using Firestore.',
+          bullets: [
+            'Developed a secure ASP.NET MVC application with authentication, authorization, and a dynamic form builder.',
+            'Implemented responsive UI, validation logic, and secure data handling using Firestore and role-based access control (RBAC).'
+          ],
+          tags: ['ASP.NET MVC', 'C#', 'Firestore', 'RBAC Authentication', 'HTML/JS']
+        },
+        'public-safety': {
+          org: 'Coding Bees Technology • 365 Labs',
+          category: 'Law Enforcement Software',
+          title: 'Law Enforcement & Public Safety UI',
+          summary: 'Mission-critical software solution built with responsive WPF desktop UIs integrated with ASP.NET Core backend APIs.',
+          bullets: [
+            'Worked on law enforcement and public safety software solutions.',
+            'Built responsive user interfaces and implemented new features based on user stories.',
+            'Analyzed and resolved bugs while working closely with QA and product teams.',
+            'Developed WPF-based desktop user interfaces and integrated them with ASP.NET Core backend APIs for data processing and system communication.'
+          ],
+          tags: ['C#', 'WPF', 'ASP.NET Core', 'REST APIs', 'Agile/SCRUM']
+        },
+        'azure-pipeline': {
+          org: 'Touchtier Technology',
+          category: 'Cloud & Messaging Architecture',
+          title: 'Azure Cloud Storage & Bus Pipeline',
+          summary: 'Scalable cloud infrastructure implementing Azure Blob, Queue, Table Storage NoSQL, and Service Bus message queues.',
+          bullets: [
+            'Implemented Azure Blob Storage for secure file uploads and container-based storage management.',
+            'Used Azure Queue Storage to support asynchronous background processing and decoupled workflows.',
+            'Worked with Azure Table Storage (NoSQL) using the Azure.Data.Tables SDK for efficient data access.',
+            'Integrated Azure Service Bus queues to enable message-driven, event-based processing.'
+          ],
+          tags: ['Microsoft Azure', 'Azure Blob', 'Azure Queue', 'Azure Table (NoSQL)', 'Service Bus']
+        }
+      };
+
+      const modal = document.getElementById('project-modal');
+      const closeModalBtn = document.getElementById('close-modal-btn');
+
+      document.querySelectorAll('.view-details-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const data = projectDetailsData[btn.dataset.projectId];
+          if (!data) return;
+
+          document.getElementById('modal-org').textContent = data.org;
+          document.getElementById('modal-category').textContent = data.category;
+          document.getElementById('modal-title').textContent = data.title;
+          document.getElementById('modal-summary').textContent = data.summary;
+
+          document.getElementById('modal-bullets').innerHTML = data.bullets
+            .map((item) => `<li class="flex items-start gap-2.5"><span class="text-[#FF4D00] font-mono font-bold mt-0.5">+</span><span>${item}</span></li>`)
+            .join('');
+
+          document.getElementById('modal-tags').innerHTML = data.tags
+            .map((tag) => `<span class="px-3 py-1 font-mono text-xs uppercase bg-[#141414] text-white border border-[#2A2A2A]">${tag}</span>`)
+            .join('');
+
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      function closeProjectModal() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
+
+      if (closeModalBtn) closeModalBtn.addEventListener('click', closeProjectModal);
+      if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeProjectModal(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (modal && !modal.classList.contains('hidden')) closeProjectModal();
+          if (fullscreenMenu && !fullscreenMenu.classList.contains('hidden')) closeMenu();
+        }
+      });
+
+      // 11. Scroll Reveal, Counter Animation & Skill Bars IntersectionObserver
+      let countersAnimated = false;
+      const metricsSection = document.getElementById('metrics');
+      const animateCounters = () => {
+        if (countersAnimated) return;
+        countersAnimated = true;
+        document.querySelectorAll('.counter').forEach((counter) => {
+          const target = parseInt(counter.dataset.target, 10);
+          const duration = 1350;
+          const startTime = performance.now();
+          const update = (now) => {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            counter.textContent = Math.floor(eased * target);
+            if (progress < 1) requestAnimationFrame(update);
+            else counter.textContent = target;
+          };
+          requestAnimationFrame(update);
+        });
+      };
+
+      let stackAnimated = false;
+      const stackGrid = document.getElementById('stack-grid');
+      const animateStackBars = () => {
+        if (stackAnimated) return;
+        stackAnimated = true;
+        document.querySelectorAll('.stack-bar-fill').forEach((bar) => {
+          bar.style.width = bar.dataset.width;
+        });
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target.classList.contains('reveal-up')) {
+              entry.target.classList.add('is-visible');
+            }
+            if (entry.target === metricsSection) animateCounters();
+            if (entry.target === stackGrid) animateStackBars();
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.reveal-up').forEach((el) => observer.observe(el));
+      if (metricsSection) observer.observe(metricsSection);
+      if (stackGrid) observer.observe(stackGrid);
+
+      // 12. Copy Contact Info Buttons
+      document.querySelectorAll('.copy-contact-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          copyTextToClipboard(btn.dataset.copy, `${btn.dataset.label.toUpperCase()} COPIED TO CLIPBOARD`);
+        });
+      });
+
+      // 13. Contact Form Validation & Feedback
+      const contactForm = document.getElementById('contact-form');
+      const formFeedback = document.getElementById('form-feedback');
+
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = document.getElementById('sender-name').value.trim();
+          const email = document.getElementById('sender-email').value.trim();
+          const subject = document.getElementById('sender-subject').value.trim();
+          const message = document.getElementById('sender-message').value.trim();
+          const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+          if (!name || !email || !subject || !message) {
+            formFeedback.className = 'p-4 font-mono text-xs bg-[#FF4D00]/15 border border-[#FF4D00] text-white';
+            formFeedback.textContent = 'ERROR: PLEASE COMPLETE ALL REQUIRED FIELDS BEFORE DISPATCHING.';
+            formFeedback.classList.remove('hidden');
+            return;
+          }
+
+          if (!emailValid) {
+            formFeedback.className = 'p-4 font-mono text-xs bg-[#FF4D00]/15 border border-[#FF4D00] text-white';
+            formFeedback.textContent = 'ERROR: PLEASE ENTER A VALID EMAIL ADDRESS.';
+            formFeedback.classList.remove('hidden');
+            return;
+          }
+
+          formFeedback.className = 'p-4 font-mono text-xs bg-emerald-500/15 border border-emerald-400 text-emerald-200';
+          formFeedback.innerHTML = `
+            <div class="font-bold text-emerald-300 uppercase">TRANSMISSION SUCCESSFUL // MESSAGE DELIVERED</div>
+            <p class="mt-1 text-neutral-200">
+              THANK YOU, <strong>${name.toUpperCase()}</strong>. YOUR INQUIRY REGARDING "${subject.toUpperCase()}" HAS BEEN SENT TO BHARATH S.
+            </p>
+          `;
+          formFeedback.classList.remove('hidden');
+          showToast('MESSAGE DELIVERED TO BHARATH S');
+          contactForm.reset();
+        });
+      }
+
+      // 14. Smooth Back to Top
+      const backToTopBtn = document.getElementById('back-to-top-btn');
+      if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+    });
+  </script>
+</body>
+</html>
